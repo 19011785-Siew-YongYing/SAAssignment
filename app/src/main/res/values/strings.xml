@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SA Assignment</string>
+    <string name="heading">*Heading*</string>
+    <string name="intro">*Introduction*</string>
+    <string name="btnGitHub">GitHub Page</string>
+    <string name="btnItemL">Click here to proceed to List of Items</string>
+    <string name="githubpage"></string>
+</resources>
