@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         header = findViewById(R.id.heading);
         intro = findViewById(R.id.intro);
         pic = findViewById(R.id.image1);
-        pic.setImageResource(R.drawable.List);
+        pic.setImageResource(R.drawable.listpic);
 
         header.setText(getString(R.string.heading));
         intro.setText(getString(R.string.intro));
