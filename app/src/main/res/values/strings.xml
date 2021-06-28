@@ -1,8 +1,24 @@
 <resources>
     <string name="app_name">SA Assignment</string>
-    <string name="heading">*Heading*</string>
-    <string name="intro">*Introduction*</string>
+    <string name="heading">Product and Warranty Tracker</string>
+    <string name="intro">Hello, welcome to "Product and Warranty Tracker". \nBy using this app, you will get to take note of \n
+                your products warranty. You can also add, delete and even update on your products warranty :). \n Click on the following buttons to:
+                \n1. Access the list of products (1st button) \n2. The codes for this app on GitHub (2nd button) </string>
     <string name="btnGitHub">GitHub Page</string>
     <string name="btnItemL">Click here to proceed to List of Items</string>
-    <string name="githubpage"></string>
+    <string name="githubpage">https://github.com/19011785-Siew-YongYing/SAAssignment</string>
+    <string name="lvHeading">List of Products \n&amp;\n their Warranty Expiry Date</string>
+    <string name="btnAdd">Add New Products</string>
+    <string name="btnUpdate">Update Products</string>
+    <string name="btnDelete">Delete Products</string>
+    <string name="itemName">Enter Expiry Date of Product</string>
+    <string name="textPosition">Enter of Position Product in List</string>
+    <string name="productName">Enter Product Name</string>
+
+    <!-- For spinner options -->
+    <string-array name="spinnerOptions">
+        <item>Expiring in 1 month</item>
+        <item>Expiring in 3 months</item>
+        <item>Expiring in 6 months</item>
+    </string-array>
 </resources>

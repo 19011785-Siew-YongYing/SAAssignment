@@ -43,7 +43,7 @@
                 android:padding="10dp"
                 android:text="@string/intro"
                 android:textAlignment="center"
-                android:textSize="35sp" />
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btnProceed"
