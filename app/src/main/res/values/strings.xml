@@ -11,7 +11,7 @@
     <string name="btnAdd">Add New Products</string>
     <string name="btnUpdate">Update Products</string>
     <string name="btnDelete">Delete Products</string>
-    <string name="itemName">Enter Expiry Date of Product</string>
+    <string name="itemName">Enter Expiry Date (YYYY-M-D)</string>
     <string name="textPosition">Enter of Position Product in List</string>
     <string name="productName">Enter Product Name</string>
 
