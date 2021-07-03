@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,6 +26,7 @@ public class ItemListActivity extends AppCompatActivity {
     ListView pdLists;
     ArrayList<String> alProducts;
     ArrayAdapter<String> aaProducts;
+    String[] ex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,11 @@ public class ItemListActivity extends AppCompatActivity {
         alProducts = new ArrayList<String>();
         // adding at least 5 products into the list first ; for now 3
         // format = Expires<YYYY-M-D> Item Name
-        alProducts.add("Expires<2022-11-10> iPhone 11");
-        alProducts.add("Expires<2021-10-30> Acer Swift 3");
-        alProducts.add("Expires<2021-7-30> Wireless Mouse");
-        Collections.sort(alProducts);
+        alProducts.add(String.format("Expires<%s> %s", "2022-3-10", "iPhone 11")); //"Expires<2022-11-10> iPhone 11"
+        alProducts.add(String.format("Expires<%s> %s", "2021-10-30", "Acer Swift 3")); // "Expires<2021-10-30> Acer Swift 3"
+        alProducts.add(String.format("Expires<%s> %s", "2021-8-30", "Wireless Mouse")); // "Expires<2021-8-30> Wireless Mouse"
+        alProducts.add(String.format("Expires<%s> %s", "2021-11-5", "iPhone 8"));
+        alProducts.add(String.format("Expires<%s> %s", "2022-2-30", "Asus Vivobook S14"));
 
         aaProducts = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alProducts);
         pdLists.setAdapter(aaProducts);
@@ -58,6 +61,8 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 alProducts.add(fm);
                 aaProducts.notifyDataSetChanged();
+                Collections.sort(alProducts);
+                Toast.makeText(ItemListActivity.this, "Product added!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,6 +73,7 @@ public class ItemListActivity extends AppCompatActivity {
                 prdName.setEnabled(false);
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.remove(index);
+                Collections.sort(alProducts);
                 aaProducts.notifyDataSetChanged();
                 Toast.makeText(ItemListActivity.this, "Product removed", Toast.LENGTH_SHORT).show();
             }
@@ -79,6 +85,7 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.set(index, fm);
+                Collections.sort(alProducts);
                 aaProducts.notifyDataSetChanged();
                 Toast.makeText(ItemListActivity.this, "Product & Warranty Date Updated", Toast.LENGTH_SHORT).show();
             }
@@ -87,25 +94,51 @@ public class ItemListActivity extends AppCompatActivity {
         opts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case 0: // when '1 month' is selected (** Expiry date format - YYYY-M-D **)
+                int year = 0;
+                int mth = 0;
+                int day = 0;
+                Calendar cal = Calendar.getInstance();
+                for (int i = 0; i < alProducts.size(); i ++){
+                    String conditions = "Expires<\\W>";
+                    ex = alProducts.get(i).split(conditions);
+                    for (int y = 0; y < ex.length; y ++){
+                        year = Integer.parseInt(ex[0]);
+                        mth = Integer.parseInt(ex[1]);
+                        day = Integer.parseInt(ex[2]);
+                    }
+                }
+                switch(position){
+                    case 0: // for '1 month' selected
+                        cal.add(Calendar.MONTH, 1);
+                        int diff = Integer.parseInt(cal.toString());
+                        if (diff == mth) {
+                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
+                            aaProducts.notifyDataSetChanged();
+                        }
+                        break;
+                    case 1: // for '3 month' selected
+                        cal.add(Calendar.MONTH, 3);
+                        int diff1 = Integer.parseInt(cal.toString());
+                        if (diff1 == mth) {
+                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
+                            aaProducts.notifyDataSetChanged();
+                        }
                         break;
 
-                    case 1: // when '3 month' is selected
-
-                        break;
-
-                    case 2: // when '6 month' is selected
-
+                    case 2: // for '6 month' selected
+                        cal.add(Calendar.MONTH, 6);
+                        int diff2 = Integer.parseInt(cal.toString());
+                        if (diff2 == mth) {
+                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
+                            aaProducts.notifyDataSetChanged();
+                        }
                         break;
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
     }
 }
