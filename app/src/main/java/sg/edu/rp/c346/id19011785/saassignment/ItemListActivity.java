@@ -11,10 +11,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 public class ItemListActivity extends AppCompatActivity {
 
@@ -110,28 +112,16 @@ public class ItemListActivity extends AppCompatActivity {
                 switch(position){
                     case 0: // for '1 month' selected
                         cal.add(Calendar.MONTH, 1);
-                        int diff = Integer.parseInt(cal.toString());
-                        if (diff == mth) {
-                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
-                            aaProducts.notifyDataSetChanged();
-                        }
+
                         break;
                     case 1: // for '3 month' selected
                         cal.add(Calendar.MONTH, 3);
-                        int diff1 = Integer.parseInt(cal.toString());
-                        if (diff1 == mth) {
-                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
-                            aaProducts.notifyDataSetChanged();
-                        }
+
                         break;
 
                     case 2: // for '6 month' selected
                         cal.add(Calendar.MONTH, 6);
-                        int diff2 = Integer.parseInt(cal.toString());
-                        if (diff2 == mth) {
-                            (ItemListActivity.this).aaProducts.getFilter().filter(parent.getItemAtPosition(position).toString());
-                            aaProducts.notifyDataSetChanged();
-                        }
+
                         break;
                 }
             }
