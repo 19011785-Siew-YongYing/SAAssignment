@@ -93,7 +93,8 @@ public class ItemListActivity extends AppCompatActivity {
             }
         });
 
-        opts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // Unable to work
+        /*opts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int year = 0;
@@ -129,6 +130,6 @@ public class ItemListActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
     }
 }
