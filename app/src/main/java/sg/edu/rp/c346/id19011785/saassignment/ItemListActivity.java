@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class ItemListActivity extends AppCompatActivity {
@@ -28,7 +29,8 @@ public class ItemListActivity extends AppCompatActivity {
     ListView pdLists;
     ArrayList<String> alProducts;
     ArrayAdapter<String> aaProducts;
-    String[] ex;
+    String[] name;
+    String name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,21 @@ public class ItemListActivity extends AppCompatActivity {
 
         aaProducts = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alProducts);
         pdLists.setAdapter(aaProducts);
+
+        class NComparator<T> implements Comparator<String> {
+            private String getName(String s) {
+                for (int i = 0 ; i < alProducts.size() ; i ++) {
+                    name = alProducts.get(i).split("Expires<[0-9]{4}\\W[0-9]{1,2}\\W[0-9]{1,2}> ", 2);
+                    for (int a = 0; a < name.length; a ++) {
+                        name1 = name[1];
+                    }
+                }
+            }
+            @Override
+            public int compare(String o1, String o2) {
+                return 0;
+            }
+        }
 
         addB.setOnClickListener(new View.OnClickListener() {
             @Override
