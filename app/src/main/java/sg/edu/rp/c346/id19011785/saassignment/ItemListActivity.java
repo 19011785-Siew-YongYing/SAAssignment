@@ -30,7 +30,6 @@ public class ItemListActivity extends AppCompatActivity {
     ArrayList<String> alProducts;
     ArrayAdapter<String> aaProducts;
     String[] name;
-    String name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +49,30 @@ public class ItemListActivity extends AppCompatActivity {
         alProducts = new ArrayList<String>();
         // adding at least 5 products into the list first ; for now 3
         // format = Expires<YYYY-M-D> Item Name
-        alProducts.add(String.format("Expires<%s> %s", "2022-3-10", "iPhone 11")); //"Expires<2022-11-10> iPhone 11"
-        alProducts.add(String.format("Expires<%s> %s", "2021-10-30", "Acer Swift 3")); // "Expires<2021-10-30> Acer Swift 3"
-        alProducts.add(String.format("Expires<%s> %s", "2021-8-30", "Wireless Mouse")); // "Expires<2021-8-30> Wireless Mouse"
         alProducts.add(String.format("Expires<%s> %s", "2021-11-5", "iPhone 8"));
+        alProducts.add(String.format("Expires<%s> %s", "2021-10-30", "Acer Swift 3")); // "Expires<2021-10-30> Acer Swift 3"
+        alProducts.add(String.format("Expires<%s> %s", "2022-3-10", "iPhone 11")); //"Expires<2022-11-10> iPhone 11"
+        alProducts.add(String.format("Expires<%s> %s", "2021-8-30", "Wireless Mouse")); // "Expires<2021-8-30> Wireless Mouse"
         alProducts.add(String.format("Expires<%s> %s", "2022-2-30", "Asus Vivobook S14"));
 
         aaProducts = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alProducts);
         pdLists.setAdapter(aaProducts);
 
-        class NComparator<T> implements Comparator<String> {
+        class NComparator<T> implements Comparator<String> { //"Expires<[0-9]{4}\\W[0-9]{1,2}\\W[0-9]{1,2}> "
             private String getName(String s) {
-                for (int i = 0 ; i < alProducts.size() ; i ++) {
-                    name = alProducts.get(i).split("Expires<[0-9]{4}\\W[0-9]{1,2}\\W[0-9]{1,2}> ", 2);
-                    for (int a = 0; a < name.length; a ++) {
-                        name1 = name[1];
-                    }
+                for (String name1 : alProducts) {
+                    name = name1.split("[Expires<[0-9]{4}\\\\W[0-9]{1,2}\\\\W[0-9]{1,2}> ]");
+                    String s1 = name[0];
+                    s1 = s;
                 }
+                return s;
             }
             @Override
             public int compare(String o1, String o2) {
-                return 0;
+                return getName(o1).compareTo(getName(o2));
             }
         }
+        Collections.sort(alProducts, new NComparator<String>());
 
         addB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +80,7 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 alProducts.add(fm);
                 aaProducts.notifyDataSetChanged();
-                Collections.sort(alProducts);
+                /*Collections.sort(alProducts, new NComparator<String>());*/
                 Toast.makeText(ItemListActivity.this, "Product added!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -92,7 +92,6 @@ public class ItemListActivity extends AppCompatActivity {
                 prdName.setEnabled(false);
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.remove(index);
-                Collections.sort(alProducts);
                 aaProducts.notifyDataSetChanged();
                 Toast.makeText(ItemListActivity.this, "Product removed", Toast.LENGTH_SHORT).show();
             }
@@ -104,7 +103,7 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.set(index, fm);
-                Collections.sort(alProducts);
+                /*Collections.sort(alProducts, new NComparator<String>());*/
                 aaProducts.notifyDataSetChanged();
                 Toast.makeText(ItemListActivity.this, "Product & Warranty Date Updated", Toast.LENGTH_SHORT).show();
             }
