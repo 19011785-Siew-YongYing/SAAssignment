@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         header.setText(getString(R.string.heading));
         intro.setText(getString(R.string.intro));
 
-        btnList.setOnClickListener(new View.OnClickListener() {
+        btnList.setOnClickListener(new View.OnClickListener() { // show the list of items / products
             @Override
             public void onClick(View v) {
                 Intent int1 = new Intent(MainActivity.this, ItemListActivity.class);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnWeb.setOnClickListener(new View.OnClickListener() {
+        btnWeb.setOnClickListener(new View.OnClickListener() { // decided to push the project to github & use the github web
             @Override
             public void onClick(View v) {
                 Intent int2 = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubpage)));

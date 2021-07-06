@@ -30,6 +30,7 @@ public class ItemListActivity extends AppCompatActivity {
     ArrayList<String> alProducts;
     ArrayAdapter<String> aaProducts;
     String[] name;
+    String s1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,8 @@ public class ItemListActivity extends AppCompatActivity {
 
         opts = findViewById(R.id.spinner);
         pdLists = findViewById(R.id.listViewProducts);
-        alProducts = new ArrayList<String>();
-        // adding at least 5 products into the list first ; for now 3
+        alProducts = new ArrayList<String>(); // declare an arraylist for user to store the products
+        // adding at least 5 products into the list first ; for now 5
         // format = Expires<YYYY-M-D> Item Name
         alProducts.add(String.format("Expires<%s> %s", "2021-11-5", "iPhone 8"));
         alProducts.add(String.format("Expires<%s> %s", "2021-10-30", "Acer Swift 3")); // "Expires<2021-10-30> Acer Swift 3"
@@ -58,21 +59,20 @@ public class ItemListActivity extends AppCompatActivity {
         aaProducts = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alProducts);
         pdLists.setAdapter(aaProducts);
 
-        class NComparator<T> implements Comparator<String> { //"Expires<[0-9]{4}\\W[0-9]{1,2}\\W[0-9]{1,2}> "
+        /*class NComparator<T> implements Comparator<String> { //"Expires<[0-9]{4}\\W[0-9]{1,2}\\W[0-9]{1,2}> "
             private String getName(String s) {
                 for (String name1 : alProducts) {
                     name = name1.split("[Expires<[0-9]{4}\\\\W[0-9]{1,2}\\\\W[0-9]{1,2}> ]");
-                    String s1 = name[0];
-                    s1 = s;
+                    s1 = name[0];
                 }
-                return s;
+                return s1;
             }
             @Override
             public int compare(String o1, String o2) {
                 return getName(o1).compareTo(getName(o2));
             }
-        }
-        Collections.sort(alProducts, new NComparator<String>());
+        }*/
+        Collections.sort(alProducts); //Collections.sort(alProducts, new NComparator<String>());
 
         addB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +80,7 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 alProducts.add(fm);
                 aaProducts.notifyDataSetChanged();
-                /*Collections.sort(alProducts, new NComparator<String>());*/
+                Collections.sort(alProducts); /*Collections.sort(alProducts, new NComparator<String>());*/
                 Toast.makeText(ItemListActivity.this, "Product added!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -88,8 +88,8 @@ public class ItemListActivity extends AppCompatActivity {
         deleteB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prdExpiry.setEnabled(false);
-                prdName.setEnabled(false);
+                /*prdExpiry.setEnabled(false);
+                prdName.setEnabled(false);*/
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.remove(index);
                 aaProducts.notifyDataSetChanged();
@@ -103,14 +103,14 @@ public class ItemListActivity extends AppCompatActivity {
                 String fm = String.format("Expires<%s> %s", prdExpiry.getText().toString(), prdName.getText().toString());
                 int index = Integer.parseInt(prdIndex.getText().toString());
                 alProducts.set(index, fm);
-                /*Collections.sort(alProducts, new NComparator<String>());*/
+                Collections.sort(alProducts); /*Collections.sort(alProducts, new NComparator<String>());*/
                 aaProducts.notifyDataSetChanged();
                 Toast.makeText(ItemListActivity.this, "Product & Warranty Date Updated", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Unable to work
-        /*opts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // Un-commented out the code again just to test again
+        opts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int year = 0;
@@ -118,8 +118,8 @@ public class ItemListActivity extends AppCompatActivity {
                 int day = 0;
                 Calendar cal = Calendar.getInstance();
                 for (int i = 0; i < alProducts.size(); i ++){
-                    String conditions = "Expires<\\W>";
-                    ex = alProducts.get(i).split(conditions);
+                    String conditions = "[Expires<\\W>]";
+                    String[] ex = alProducts.get(i).split(conditions);
                     for (int y = 0; y < ex.length; y ++){
                         year = Integer.parseInt(ex[0]);
                         mth = Integer.parseInt(ex[1]);
@@ -146,6 +146,6 @@ public class ItemListActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
     }
 }
